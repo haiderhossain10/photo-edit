@@ -1,31 +1,13 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import usePanZoom from "use-pan-and-zoom";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 import "../styles/photo-editor.scss";
 
 const PhotoEditor = () => {
-    const { transform, panZoomHandlers, setContainer, setZoom, setPan, zoom } =
-        usePanZoom({
-            disableWheel: false,
-            enableZoom: true,
-            zoomSensitivity: 0.001,
-            requireCtrlToZoom: false,
-        });
-
     const onDrop = useCallback((droppedFiles) => {
         console.log(droppedFiles[0]);
     }, []);
-
-    useEffect(() => {
-        if (zoom <= 1) {
-            setZoom(1);
-            setPan({
-                x: 0,
-                y: 0,
-            });
-        }
-    }, [transform]);
 
     const { acceptedFiles, getRootProps, getInputProps, isDragActive } =
         useDropzone({
@@ -47,16 +29,13 @@ const PhotoEditor = () => {
         <div className="App">
             <div className="photo-editor">
                 <div className="photo-viewer">
-                    <div
-                        className="image-outer-container"
-                        ref={(el) => setContainer(el)}
-                        {...panZoomHandlers}
-                    >
-                        <div
-                            className="image-inner-container"
-                            style={{ transform }}
-                        >
-                            {selectedImage}
+                    <div className="image-outer-container">
+                        <div className="image-inner-container">
+                            <TransformWrapper>
+                                <TransformComponent>
+                                    {selectedImage}
+                                </TransformComponent>
+                            </TransformWrapper>
                         </div>
                     </div>
                 </div>

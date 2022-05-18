@@ -1,7 +1,7 @@
 import { PhotoEditor } from "./pages";
 
 function App() {
-  return <PhotoEditor />;
+    return <PhotoEditor />;
 }
 
 export default App;
