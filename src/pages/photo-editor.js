@@ -18,7 +18,6 @@ const PhotoEditor = () => {
     }, []);
 
     useEffect(() => {
-        console.log(zoom);
         if (zoom <= 1) {
             setZoom(1);
             setPan({
@@ -26,7 +25,7 @@ const PhotoEditor = () => {
                 y: 0,
             });
         }
-    });
+    }, [transform]);
 
     const { acceptedFiles, getRootProps, getInputProps, isDragActive } =
         useDropzone({
